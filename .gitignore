@@ -1,7 +1,5 @@
 # ignored files
-mindseg/
 *.csv
-
 
 # Mac OS
 .DS_Store

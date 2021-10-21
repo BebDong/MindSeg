@@ -7,7 +7,7 @@ __all__ = ['get_eprnet', 'EPRNet']
 
 
 class EPRNet(nn.Cell):
-    def __init__(self, nclass, activation='relu', drop_out=.1, phase='train'):
+    def __init__(self, nclass, activation='prelu', drop_out=.1, phase='train'):
         super(EPRNet, self).__init__()
         self.phase = phase
         self.shape = P.Shape()
@@ -47,14 +47,12 @@ class EPRNet(nn.Cell):
         if self.stern_drop and self.phase == 'train':
             out = self.stern_drop(out)
         out = self.stern_conv2(out)
-
-        # out = P.ResizeBilinear((size[2], size[3]), True)(out)  # do not support GPU yet
-        out = P.ResizeNearestNeighbor((size[2], size[3]), True)(out)
+        out = P.ResizeBilinear((size[2], size[3]), True)(out)  # do not support GPU yet
         return out
 
 
 class _MPUnit(nn.Cell):
-    def __init__(self, in_channels, out_channles, atrous_rates, activation='relu'):
+    def __init__(self, in_channels, out_channles, atrous_rates, activation='prelu'):
         super(_MPUnit, self).__init__()
         self.mpu0 = nn.Conv2dBnAct(in_channels, out_channles, 1,
                                    weight_init='xavier_uniform',
@@ -98,7 +96,8 @@ class _MPUnit(nn.Cell):
 
 
 class _EPRModule(nn.Cell):
-    def __init__(self, in_channels, out_channels, atrous_rates, activation='relu', down_sample=False):
+    def __init__(self, in_channels, out_channels, atrous_rates, activation='prelu',
+                 down_sample=False):
         super(_EPRModule, self).__init__()
         stride = 2 if down_sample else 1
 
@@ -108,12 +107,13 @@ class _EPRModule(nn.Cell):
                                       has_bn=True,
                                       activation=activation)
         if (out_channels != in_channels) or down_sample:
-            self.skip = nn.Conv2d(in_channels, out_channels, 1, stride=stride, weight_init='xavier_uniform')
+            self.skip = nn.Conv2d(in_channels, out_channels, 1, stride=stride,
+                                  weight_init='xavier_uniform')
             self.skip_bn = nn.BatchNorm2d(out_channels)
         else:
             self.skip = None
         self.act = nn.ReLU()
-        self.add = P.TensorAdd()
+        self.add = P.Add()
 
     def construct(self, x):
         identity = x

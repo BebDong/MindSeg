@@ -29,7 +29,7 @@ class BuildEvalNetwork(nn.Cell):
         self.network = network
 
         self.transpose = P.Transpose()
-        self.softmax = nn.Softmax(axis=3)  # support only for calculation at the lase axis for now
+        self.softmax = nn.Softmax(axis=3)  # support only for calculation at the last axis for now
 
     def construct(self, input_data):
         output = self.network(input_data)

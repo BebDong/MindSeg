@@ -22,7 +22,7 @@ def build_data_file(data_name: str, split: str = 'train', shard_num: int = 1, sh
                           split=split,
                           shard_num=shard_num,
                           shuffle=shuffle)
-    assert mindrecord_path
+    assert mindrecord_path, ".mindrecord file path should not be None"
     return data_set.build_data(mindrecord_path)
 
 

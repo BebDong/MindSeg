@@ -14,7 +14,7 @@ from mindseg.data import build_data_file
 
 
 def parse_args():
-    parser = argparse.ArgumentParser('build mindrecord data')
+    parser = argparse.ArgumentParser('build .mindrecord data')
 
     parser.add_argument('--data-name', type=str, default='Cityscapes')
     parser.add_argument('--dst-path', type=str, default='tmp_data/train.mindrecord',
@@ -35,6 +35,7 @@ if __name__ == '__main__':
         shutil.rmtree(dir_name, ignore_errors=True)
     os.makedirs(dir_name)
 
+    # build .mindrecord file
     build_data_file(data_name=args.data_name,
                     split='train',
                     shard_num=args.num_shard,

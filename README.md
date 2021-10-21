@@ -9,7 +9,7 @@ In this project, we adopt:
 - Python 3.7.5
 - CUDA 10.1
 - cuDNN 7.6.5
-- Mindspore-gpu 1.0.1
+- Mindspore-gpu 1.5.0
 
 Refer to [MindSpore Installation Guide](https://www.mindspore.cn/install/en) for details.
 
@@ -36,5 +36,5 @@ python eval.py --data-name Cityscapes --batch-size 16 --crop-size 1024 --scales 
 
 ### Remarks
 
-- The `ResizeBilinear` and `PReLU` operators of MindSpore do not support NVIDIA GPU for now
+- This repository uses `BatchNorm2d` as the `SyncBatchNorm` operator in MindSpore does not support NVIDIA GPU for now, which may lead to poor segmentation accuracy when training on multiple devices.
 - When evaluating model performance, the `ignore-label` indicator is temporarily not supported, which will be improved in a future version.

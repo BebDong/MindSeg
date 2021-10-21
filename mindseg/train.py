@@ -39,7 +39,7 @@ class BuildTrainNetwork(nn.Cell):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser('mindspore semantic segmentation training')
+    parser = argparse.ArgumentParser('MindSpore semantic segmentation training')
 
     # experiments dir
     parser.add_argument('--train-dir', type=str, default='experiment',

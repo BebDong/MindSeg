@@ -44,8 +44,8 @@ def parse_args():
 
     # val data
     parser.add_argument('--data-name', type=str, default='cityscapes')
-    parser.add_argument('--batch_size', type=int, default=16)
-    parser.add_argument('--crop_size', type=int, default=1024)
+    parser.add_argument('--batch-size', type=int, default=16)
+    parser.add_argument('--crop-size', type=int, default=1024)
     parser.add_argument('--scales', type=float, nargs='+', default=(1.0,))
     # parser.add_argument('--scales', type=float, nargs='+', default=(0.5, 0.75, 1.0, 1.25, 1.75, 2.0))
     parser.add_argument('--flip', action='store_true', default=False)

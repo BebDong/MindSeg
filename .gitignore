@@ -1,4 +1,5 @@
 # ignored files
+mindseg/try.py
 *.csv
 
 # Mac OS

@@ -1,9 +1,11 @@
 # coding=utf-8
 
+from .canetv2 import *
 from .eprnet import *
 
 _nets_map = {
     'eprnet': EPRNet,
+    'canetv2': CANetv2,
 }
 
 

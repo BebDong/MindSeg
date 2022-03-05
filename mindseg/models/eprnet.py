@@ -47,7 +47,7 @@ class EPRNet(nn.Cell):
         if self.stern_drop and self.phase == 'train':
             out = self.stern_drop(out)
         out = self.stern_conv2(out)
-        out = P.ResizeBilinear((size[2], size[3]), True)(out)  # do not support GPU yet
+        out = P.ResizeNearestNeighbor((size[2], size[3]), True)(out)
         return out
 
 
